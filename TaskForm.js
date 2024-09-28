@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'; // Import useEffect
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import TaskForm from './TaskForm'; // Import the TaskForm component
+import TaskForm from './TaskForm';
 import { useNavigate } from 'react-router-dom';
 
 const TaskList = () => {
@@ -37,21 +37,20 @@ const TaskList = () => {
   ]; // Default task list
 
   const [tasks, setTasks] = useState([]);
-  const [showForm, setShowForm] = useState(false); // State to manage the visibility of TaskForm
+  const [showForm, setShowForm] = useState(false);
   const [checkedItems, setCheckedItems] = useState(Array(4).fill(false));
-  const [dropdownVisible, setDropdownVisible] = useState(-1); // State to track which dropdown is visible
-  const [searchTerm, setSearchTerm] = useState(''); // State for search term
-  const [filteredTasks, setFilteredTasks] = useState([]); // Initialize filteredTasks with all tasks
+  const [dropdownVisible, setDropdownVisible] = useState(-1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const navigate = useNavigate();
   
-  // Load tasks from localStorage on initial render
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem('tasks')) || defaultTasks;
-    setTasks(savedTasks); // Initialize tasks either from localStorage or defaultTasks
-  }, []); // Run only on initial render
+    setTasks(savedTasks);
+  }, []);
 
   useEffect(() => {
-    setFilteredTasks(tasks); // Update filteredTasks whenever tasks change
+    setFilteredTasks(tasks);
   }, [tasks]);
 
   const handleSelectAll = (event) => {
@@ -66,41 +65,40 @@ const TaskList = () => {
   };
 
   const handleNewTaskClick = () => {
-    setShowForm(true); // Show the form instead of navigating
+    setShowForm(true);
   };
 
   const handleRefresh = () => {
-    navigate('/'); // Refresh the page by navigating to the current route
+    navigate('/');
   };
 
   const handleSaveTask = (newTask) => {
-    const updatedTasks = [...tasks, newTask]; // Append the new task to the existing list
+    const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
     setShowForm(false);
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks)); // Save updated task list to local storage
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
 
   const handleEditTask = (index) => {
     const taskToEdit = tasks[index]; // Get the task to edit
-    navigate('/edit-task', { state: { task: taskToEdit, index } }); // Pass the task and index to edit-task page
+    navigate('/edit-task', { state: { task: taskToEdit, index } });
   };
 
   const handleDeleteTask = (index) => {
     const updatedTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
     setTasks(updatedTasks);
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks)); // Update local storage after deletion
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
 
   const toggleDropdown = (index) => {
-    setDropdownVisible(dropdownVisible === index ? -1 : index); // Toggle dropdown visibility
+    setDropdownVisible(dropdownVisible === index ? -1 : index);
   };
 
-  // Function to filter tasks based on the search term
   const handleSearch = () => {
     const filtered = tasks.filter((task) => {
       return (
-        task && // Ensure task is not null or undefined
-        typeof task.assignedTo === 'string' && // Check if assignedTo is a string
+        task &&
+        typeof task.assignedTo === 'string' &&
         (task.assignedTo.toLowerCase().includes(searchTerm.toLowerCase()) ||
         task.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
         task.dueDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -108,8 +106,6 @@ const TaskList = () => {
         task.comments.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     });
-
-    // Navigate to SearchResults with filtered tasks
     navigate('/search-results', { state: { filteredTasks: filtered } });
   };
 
