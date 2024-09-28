@@ -1,0 +1,317 @@
+/* App Container Styles */
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Task List Container Styles */
+.task-list-container {
+  padding: 20px; /* Add some padding */
+}
+
+/* Task List Header Styles */
+.task-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Left Section Styles */
+.task-list-left {
+  display: flex;
+  align-items: center;
+}
+
+.icon-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: crimson;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+/* Make sure text is visible on white background */
+.task-title,
+.task-subtitle,
+.task-record-count {
+  margin: 0;
+  color: #797575;
+}
+
+/* Right Section Styles */
+.task-list-right {
+  display: flex; /* Changed to flex for better alignment */
+  align-items: center; /* Align items vertically */
+  flex-direction: column; /* Stack buttons and search bar */
+  align-items: flex-end; /* Align items to the right */
+}
+
+/* Button Container Styles */
+.task-btn-table {
+  margin-bottom: 10px; /* Space between buttons and search bar */
+}
+
+/* Button Styles */
+.btn-yellow-orange {
+  background-color: crimson; /* Yellowish-orange color */
+  color: white; /* Text color for buttons */
+  border: none; /* Remove individual button borders */
+  padding: 10px; /* Padding for button content */
+  text-align: center; /* Center text in buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  width: auto; /* Adjust width to fit content */
+}
+
+.btn-yellow-orange:hover {
+  background-color: #d50000; /* Darker shade on hover */
+}
+
+/* Centering checkbox in table cell */
+.centered-checkbox {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100%; /* Ensure the cell takes the full height */
+}
+
+/* Search Container Styles */
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc; /* Border around the search container */
+  border-radius: 5px; /* Rounded corners for the search input */
+}
+
+.search-input {
+  padding: 5px;
+  border: none; /* Remove individual input border */
+  border-radius: 5px 0 0 5px; /* Rounded left corners */
+  flex: 1; /* Input takes full width */
+}
+
+.search-input::placeholder {
+  color: #797575; /* Placeholder color */
+}
+
+.search-btn {
+  padding: 5px;
+  border: 1px solid #ccc; /* Border around search button */
+  border-left: none; /* Remove left border to connect with input */
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+/* Task Table Styles */
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Make table border visible */
+}
+
+.task-table th,
+.task-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.task-table th {
+  background-color: #f2f2f2;
+}
+
+/* User Link Styles */
+.user-link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.user-link:hover {
+  color: darkblue;
+}
+
+/* Task List Footer Styles */
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pagination-link {
+  margin: 0 5px;
+  text-decoration: none;
+  color: blue;
+}
+
+.pagination-number {
+  margin: 0 5px;
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: flex; /* Use flexbox to align items */
+}
+
+.dropdown-item {
+  background: #fff; /* Background color for buttons */
+  border: 1px solid #ccc; /* Border styling */
+  padding: 5px 10px; /* Padding for better button size */
+  cursor: pointer; /* Cursor style for buttons */
+  border-radius: 5px; /* Rounded corners for buttons */
+  transition: background 0.2s; /* Transition for hover effect */
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0; /* Background change on hover */
+}
+
+/* Task Form Container Styles */
+.task-form-container {
+  background-color: #fff; /* White background for contrast */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  padding: 20px; /* Padding inside the container */
+  margin: 20px auto; /* Centering the form */
+  max-width: 500px; /* Maximum width for the form */
+}
+
+.edit-task-container {
+  background-color: #fff; /* White background for contrast */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  padding: 20px; /* Padding inside the container */
+  margin: 20px auto; /* Centering the form */
+  max-width: 500px; /* Maximum width for the form */
+}
+/* Title Styles */
+.task-form-container h2 {
+  color: crimson; /* Title color */
+  text-align: center; /* Center title */
+}
+
+.edit-task-container h2 {
+  color: crimson; /* Title color */
+  text-align: center; /* Center title */
+}
+
+/* Form Styles */
+.task-form {
+  display: flex;
+  flex-direction: column; /* Stack form elements vertically */
+}
+
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 15px; /* Space between form groups */
+}
+
+/* Label Styles */
+label {
+  color: #333; /* Dark text for labels */
+  font-weight: bold; /* Bold labels */
+}
+
+/* Input and Select Styles */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding inside inputs */
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  transition: border-color 0.3s; /* Smooth border transition */
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+  border-color: crimson; /* Change border color on focus */
+}
+
+/* Button Styles */
+.btn {
+  background-color: crimson; /* Crimson background for buttons */
+  color: white; /* White text for buttons */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners for buttons */
+  padding: 10px; /* Padding for button */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.btn:hover {
+  background-color: #d50000; /* Darker shade on hover */
+}
+
+/* Additional Styles for Back Button */
+.back-button {
+  padding: 5px 10px; /* Adjust padding for the Back button */
+  width: auto; /* Button size fits content */
+  margin: 10px; /* Margin for spacing */
+  align-self: flex-end; /* Align the button to the right */
+}
+
+/* Align Back Button in Search Result */
+.search-result-container {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: space-between; /* Space between search result and button */
+  align-items: center; /* Center items vertically */
+}
+
+.search-results-container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  padding: 20px; /* Add some padding */
+}
+
+.search-results-header {
+  display: flex; /* Use flexbox for header layout */
+  justify-content: space-between; /* Space between title and back button */
+  align-items: center; /* Align items vertically */
+}
