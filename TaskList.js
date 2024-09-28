@@ -5,7 +5,7 @@ import TaskForm from './TaskForm'; // Import the TaskForm component
 import { useNavigate } from 'react-router-dom';
 
 const TaskList = () => {
-  const [tasks, setTasks] = useState([
+  const defaultTasks = [
     {
       assignedTo: 'User 1',
       status: 'In Progress',
@@ -34,25 +34,25 @@ const TaskList = () => {
       priority: 'High',
       comments: 'Task details for User 4.',
     },
-  ]); // Initialize tasks with fixed data
+  ]; // Default task list
+
+  const [tasks, setTasks] = useState([]);
   const [showForm, setShowForm] = useState(false); // State to manage the visibility of TaskForm
   const [checkedItems, setCheckedItems] = useState(Array(4).fill(false));
   const [dropdownVisible, setDropdownVisible] = useState(-1); // State to track which dropdown is visible
   const [searchTerm, setSearchTerm] = useState(''); // State for search term
-  const [filteredTasks, setFilteredTasks] = useState(tasks); // Initialize filteredTasks with all tasks
+  const [filteredTasks, setFilteredTasks] = useState([]); // Initialize filteredTasks with all tasks
   const navigate = useNavigate();
   
+  // Load tasks from localStorage on initial render
   useEffect(() => {
-    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    if (Array.isArray(savedTasks)) {
-      setTasks(savedTasks);
-    }
-  }, []);
-  
-  // Effect to initialize filteredTasks with all tasks
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || defaultTasks;
+    setTasks(savedTasks); // Initialize tasks either from localStorage or defaultTasks
+  }, []); // Run only on initial render
+
   useEffect(() => {
-    setFilteredTasks(tasks);
-  }, [tasks]); // Update filteredTasks whenever tasks change
+    setFilteredTasks(tasks); // Update filteredTasks whenever tasks change
+  }, [tasks]);
 
   const handleSelectAll = (event) => {
     const newCheckedState = checkedItems.map(() => event.target.checked);
@@ -70,12 +70,14 @@ const TaskList = () => {
   };
 
   const handleRefresh = () => {
-    navigate('/');
+    navigate('/'); // Refresh the page by navigating to the current route
   };
 
-  const handleSaveTask = (taskDetails) => {
-    setTasks([...tasks, taskDetails]); // Save the new task details
-    setShowForm(false); // Hide the form after saving the task
+  const handleSaveTask = (newTask) => {
+    const updatedTasks = [...tasks, newTask]; // Append the new task to the existing list
+    setTasks(updatedTasks);
+    setShowForm(false);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks)); // Save updated task list to local storage
   };
 
   const handleEditTask = (index) => {
@@ -84,8 +86,9 @@ const TaskList = () => {
   };
 
   const handleDeleteTask = (index) => {
-    const newTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
-    setTasks(newTasks);
+    const updatedTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks)); // Update local storage after deletion
   };
 
   const toggleDropdown = (index) => {
@@ -129,10 +132,10 @@ const TaskList = () => {
               <tbody>
                 <tr>
                   <td>
-                    <button className="btn btn-yellow-orange new-task-btn" onClick={handleNewTaskClick}>New Task</button>
+                    <button className="btn new-task-btn" onClick={handleNewTaskClick}>New Task</button>
                   </td>
                   <td>
-                    <button className="btn btn-yellow-orange refresh-btn" onClick={handleRefresh}>Refresh</button>
+                    <button className="btn refresh-btn" onClick={handleRefresh}>Refresh</button>
                   </td>
                 </tr>
               </tbody>
@@ -142,12 +145,12 @@ const TaskList = () => {
                 type="text" 
                 placeholder="Search" 
                 className="search-input" 
-                value={searchTerm} // Control the input with searchTerm
-                onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on change
+                value={searchTerm} 
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button 
                 className="btn search-btn" 
-                onClick={handleSearch} // Trigger search on button click
+                onClick={handleSearch}
               >
                 <i className="bi bi-search"></i>
               </button>
@@ -157,8 +160,8 @@ const TaskList = () => {
       )}
 
       {showForm ? (
-        <TaskForm onSave={handleSaveTask} /> // Show TaskForm when showForm is true
-      ) : (
+        <TaskForm onSave={handleSaveTask} /> //onClick of New Task button showForm is true.
+      ) : (                                  //So is showForm is true then show TaskForm else TaskList table will be displayed.
         <table className="task-table">
           <thead>
             <tr>
@@ -179,7 +182,7 @@ const TaskList = () => {
           <tbody>
             {filteredTasks.length > 0 ? (
               filteredTasks.map((task, index) => (
-                task && ( // Check that task is not null or undefined
+                task && (
                   <tr key={index}>
                     <td className="centered-checkbox">
                       <input
@@ -218,25 +221,10 @@ const TaskList = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6">No tasks available</td>
+                <td colSpan="6" className="no-tasks">No tasks found.</td>
               </tr>
             )}
           </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan="6" className="pagination-footer">
-                <div className="pagination-controls" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <div className="pagination-links">
-                    <a href="#first" className="pagination-link">First</a>
-                    <a href="#previous" className="pagination-link">Previous</a>
-                    <span className="pagination-link">1</span>
-                    <a href="#next" className="pagination-link">Next</a>
-                    <a href="#last" className="pagination-link">Last</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tfoot>
         </table>
       )}
     </div>
