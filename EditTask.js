@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../App.css'; // Assuming you have this file for custom styles
+import '../App.css';
 
 const EditTask = ({ onSave }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { task, index } = location.state; // Get the task and its index from location state
+  const { task, index } = location.state;
 
   const [assignedTo, setAssignedTo] = useState(task.assignedTo);
   const [status, setStatus] = useState(task.status);
